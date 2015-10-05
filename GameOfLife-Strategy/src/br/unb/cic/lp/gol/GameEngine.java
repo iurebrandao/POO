@@ -150,13 +150,72 @@ public class GameEngine {
 	 */
 	public int numberOfNeighborhoodAliveCells(int i, int j) {
 		int alive = 0;
-		for (int a = i - 1; a <= i + 1; a++) {
-			for (int b = j - 1; b <= j + 1; b++) {
+		int a,b;
+		final int max_coluna,max_linha;
+		max_linha = (this.height) - 1;
+		max_coluna = (this.width) - 1;
+		
+		for (a = i - 1; a <= i + 1; a++) {
+			
+			for (b = j - 1; b <= j + 1; b++) {
 				if (validPosition(a, b)  && (!(a==i && b == j)) && cells[a][b].isAlive()) {
 					alive++;
 				}
 			}
 		}
+		if(i == 0 ){
+			a = max_linha;
+			
+			if(validPosition(a,j) && cells[a][j].isAlive()){
+				alive++;
+			}
+			if(j == 0){
+				b = max_coluna;
+				if(validPosition(a,b) && cells[a][b].isAlive()){
+					alive++;
+				}
+			}
+			else if(j == max_coluna){
+				b = 0;
+				if(validPosition(a,b) && cells[a][b].isAlive()){
+					alive++;
+				}
+			}
+		}
+		
+		else if( i == max_linha){
+			a = 0;
+			if(validPosition(a,j) && cells[a][j].isAlive()){
+				alive++;
+			}
+			if( j == 0){
+				b = max_coluna;
+				if(validPosition(a,b) && cells[a][b].isAlive()){
+					alive++;
+				}
+			}
+			else if( j == max_coluna){
+				b = 0;
+				if(validPosition(a,b) && cells[a][b].isAlive()){
+					alive++;
+				}
+			}
+		}
+		if( j == 0 ){
+			b = max_coluna;
+			if(validPosition(i,b) && cells[i][b].isAlive()){
+				alive++;
+			}
+		}
+		else if( j == max_coluna){
+			b = 0;
+			if(validPosition(i,b) && cells[i][b].isAlive()){
+				alive++;
+			}
+		}
+		if(cells[i][j].isAlive())
+			System.out.println("Vizinhos="+alive);
+		
 		return alive;
 	}
 
