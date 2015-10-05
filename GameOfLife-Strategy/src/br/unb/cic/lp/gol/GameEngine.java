@@ -56,7 +56,8 @@ public class GameEngine {
 	 * se uma celula deve se tornar viva ou ser mantida viva na proxima 
 	 * geracao. 
 	 */
-	public void nextGeneration() {
+	public boolean nextGeneration() {
+		boolean existe_celula = false;
 		List<Cell> mustRevive = new ArrayList<Cell>();
 		List<Cell> mustKill = new ArrayList<Cell>();
 		for (int i = 0; i < height; i++) {
@@ -71,6 +72,15 @@ public class GameEngine {
 		}
 		
 		updateStatistics(mustRevive, mustKill);
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if(cells[i][j].isAlive()){
+					existe_celula = true;
+					break;
+				}
+			}
+		}
+		return existe_celula;
 	}
 
 	/*
@@ -213,8 +223,6 @@ public class GameEngine {
 				alive++;
 			}
 		}
-		if(cells[i][j].isAlive())
-			System.out.println("Vizinhos="+alive);
 		
 		return alive;
 	}

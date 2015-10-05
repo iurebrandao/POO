@@ -21,7 +21,8 @@ public class GameView {
 	private static final int NEXT_GENERATION = 2;
 	private static final int CONWAY = 3;
 	private static final int HIGH_LIFE = 4; 
-	private static final int HALT = 5; 
+	private static final int HALT = 5;
+	private static final int EXIT = 6;
 
 	private GameEngine engine;
 	private GameController controller;
@@ -38,7 +39,7 @@ public class GameView {
 	 * Atualiza o componente view (representado pela classe GameBoard),
 	 * possivelmente como uma resposta a uma atualizacao do jogo.
 	 */
-	public void update() {
+	public void update(boolean existe_celula) {
 		printFirstRow();
 		printLine();
 		for (int i = 0; i < engine.getHeight(); i++) {
@@ -48,7 +49,8 @@ public class GameView {
 			System.out.println("   " + i);
 			printLine();
 		}
-		printOptions();
+		if(!existe_celula)
+			printOptions();
 	}
 
 	private void printOptions() {
@@ -63,7 +65,7 @@ public class GameView {
 			System.out.println("[3] Conway");
 			System.out.println("[4] High Life");
 			System.out.println("[5] Halt");
-		
+			System.out.println("[6] Exit");
 			System.out.print("\n \n Option: ");
 			
 			option = parseOption(s.nextLine());
@@ -72,9 +74,10 @@ public class GameView {
 		switch(option) {
 			case MAKE_CELL_ALIVE : makeCellAlive(); break;
 			case NEXT_GENERATION : nextGeneration(); break;
-			case CONWAY : engine.setEstrategia(new Conway()); update(); break;
-			case HIGH_LIFE : engine.setEstrategia(new HighLife()); update();break;
+			case CONWAY : engine.setEstrategia(new Conway()); update(false); break;
+			case HIGH_LIFE : engine.setEstrategia(new HighLife()); update(false);break;
 			case HALT : halt();
+			case EXIT: System.exit(0);
 		}
 	}
 	
@@ -96,7 +99,7 @@ public class GameView {
 	}
 	
 	private void nextGeneration() {
-		controller.nextGeneration();
+		controller.nextGeneration();	
 	}
 	
 	private void halt() {
@@ -125,7 +128,11 @@ public class GameView {
 		else if(option.equals("5")) {
 			return HALT;
 		}
-		else return INVALID_OPTION;
+		else if( option.equals("6")){
+			return EXIT;
+		}
+		else
+			return INVALID_OPTION;
 	}
 
 	/* Imprime uma linha usada como separador das linhas do tabuleiro */
