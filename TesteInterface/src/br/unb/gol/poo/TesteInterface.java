@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 public class TesteInterface extends JFrame {
 	private JButton conway;
 	private JButton highlife;
@@ -63,6 +64,7 @@ public class TesteInterface extends JFrame {
 			
 			if(event.getSource() == conway ){
 				TesteInterface.this.dispose();
+				
 				
 				int dim=10;
 			    int matrix[][] = new int[10][10];
