@@ -13,7 +13,7 @@ public class TesteInterface extends JFrame {
 	private JButton conway;
 	private JButton highlife;
 	private JButton livefreeordie;
-	private JTextPane selecione;
+	private JOptionPane frame;
 	
 	public TesteInterface(){
 		
@@ -21,8 +21,6 @@ public class TesteInterface extends JFrame {
 		setLayout(new FlowLayout());
 		this.setLocation(400, 300);
 		
-		selecione = new JTextPane();
-		add(selecione);
 		
 		conway = new JButton("Conway");
 		add(conway);
@@ -39,7 +37,6 @@ public class TesteInterface extends JFrame {
 		livefreeordie.addActionListener(handler);
 		
 		JOptionPane.showMessageDialog(null,"Bem-vindo ao GOL");
-		
 		JOptionPane.showMessageDialog(null, "Regras Conway: \n"
 				+"1. Qualquer célula viva com menos de dois vizinhos morre por subpopulação.\n"
 				+"2. Qualquer célula viva com dois ou três vizinhos vivos permanece viva.\n"
@@ -65,8 +62,13 @@ public class TesteInterface extends JFrame {
 			if(event.getSource() == conway ){
 				TesteInterface.this.dispose();
 				
+				Tabuleiro frame = new Tabuleiro();
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setSize(400,500);
+				frame.setVisible(true); 
 				
-				int dim=10;
+				
+				/* int dim=10;
 			    int matrix[][] = new int[10][10];
 
 			    JFrame f = new JFrame("Window containing a matrix");
@@ -81,7 +83,7 @@ public class TesteInterface extends JFrame {
 			    }
 			    f.add(p);
 			    f.pack();
-			    f.setVisible(true);
+			    f.setVisible(true); */
 			}	
 			if(event.getSource() == highlife ){
 				TesteInterface.this.dispose();
