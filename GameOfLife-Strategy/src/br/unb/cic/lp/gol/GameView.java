@@ -95,7 +95,8 @@ public class GameView extends JFrame {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setSize(400,500);
 				frame.setVisible(true);
-				setStrategy(3); // Arrumar para ter livefreeordie!!!
+				setStrategy(3); 
+				
 			}
 		}
 	}
@@ -119,8 +120,6 @@ public class GameView extends JFrame {
 	private void setStrategy(int option) {
 		
 		switch(option) {
-			case MAKE_CELL_ALIVE : makeCellAlive(); break;
-			case NEXT_GENERATION : nextGeneration(); break;
 			case CONWAY : engine.setEstrategia(new Conway()); update(false); break;
 			case HIGH_LIFE : engine.setEstrategia(new HighLife()); update(false);break;
 			case LIVE_FREE_OR_DIE : engine.setEstrategia(new LiveFreeOrDie()); update(false);break;
