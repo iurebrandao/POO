@@ -1,7 +1,5 @@
 package br.unb.gol.poo;
 
-
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -55,76 +53,20 @@ public class TesteInterface extends JFrame {
 	
 	}
 	
+	
+	
 	private class ButtonHandler implements ActionListener{
 //		trata evento de botao
 		public void actionPerformed(ActionEvent event){
 			
-			if(event.getSource() == conway ){
+			if(event.getSource() == conway || event.getSource() == highlife || event.getSource() == livefreeordie){
 				TesteInterface.this.dispose();
-				
 				Tabuleiro frame = new Tabuleiro();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setSize(400,500);
-				frame.setVisible(true); 
-				
-				
-				/* int dim=10;
-			    int matrix[][] = new int[10][10];
-
-			    JFrame f = new JFrame("Window containing a matrix");
-			    JPanel p = new JPanel();
-			    p.setLayout(new GridLayout(dim, dim));
-
-			    for(int r = 0; r < dim; r++){
-			        for(int c = 0; c < dim; c++){
-			            MatrixButton button= new MatrixButton(r, c, matrix);
-			            p.add(button);
-			        }
-			    }
-			    f.add(p);
-			    f.pack();
-			    f.setVisible(true); */
-			}	
-			if(event.getSource() == highlife ){
-				TesteInterface.this.dispose();
-				
-				int dim=10;
-			    int matrix[][] = new int[10][10];
-
-			    JFrame f = new JFrame("Window containing a matrix");
-			    JPanel p = new JPanel();
-			    p.setLayout(new GridLayout(dim, dim));
-
-			    for(int r = 0; r < dim; r++){
-			        for(int c = 0; c < dim; c++){
-			            MatrixButton button= new MatrixButton(r, c, matrix);
-			            p.add(button);
-			        }
-			    }
-			    f.add(p);
-			    f.pack();
-			    f.setVisible(true);
-			}
-			if(event.getSource() == livefreeordie ){
-				TesteInterface.this.dispose();
-				
-				int dim=10;
-			    int matrix[][] = new int[10][10];
-
-			    JFrame f = new JFrame("Window containing a matrix");
-			    JPanel p = new JPanel();
-			    p.setLayout(new GridLayout(dim, dim));
-
-			    for(int r = 0; r < dim; r++){
-			        for(int c = 0; c < dim; c++){
-			            MatrixButton button= new MatrixButton(r, c, matrix);
-			            p.add(button);
-			        }
-			    }
-			    f.add(p);
-			    f.pack();
-			    f.setVisible(true);
-			}
+				frame.setVisible(true);
+	
+			}		
 		}
 	}
 }

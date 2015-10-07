@@ -19,6 +19,7 @@ public class Tabuleiro extends JFrame{
 	private JButton confirmacao;
 	private String numRows, numColumns;
 	private Font FonteUsual;
+	private int numLinhas,numColunas;
 	
 	public Tabuleiro(){
 		super("Tamanho do Tabuleiro");
@@ -74,12 +75,35 @@ public class Tabuleiro extends JFrame{
 		public void keyTyped(KeyEvent e) {}
 		public void keyReleased(KeyEvent e) {}
 	}
+	
+	private void Desenha_matriz(int dimRows,int dimColumns){
+		
+	    int matrix[][] = new int[dimRows][dimColumns];
+
+	    JFrame f = new JFrame("Window containing a matrix");
+	    JPanel p = new JPanel();
+	    p.setLayout(new GridLayout(dimRows, dimColumns));
+
+	    for(int r = 0; r < dimRows; r++){
+	        for(int c = 0; c < dimColumns; c++){
+	            MatrixButton button= new MatrixButton(r, c, matrix);
+	            p.add(button);
+	        }
+	    }
+	    f.add(p);
+	    f.pack();
+	    f.setVisible(true); 
+	}
+	
 	public class ButtonHandler implements ActionListener{
 		public void actionPerformed (ActionEvent event){
 			if (event.getSource() == confirmacao) {
+
+				numLinhas = Integer.parseInt(rows.getText());
+				numColunas = Integer.parseInt(columns.getText());
+				Tabuleiro.this.dispose();
+				Desenha_matriz(numLinhas,numColunas);
 				
-				numRows = rows.getText();
-				numColumns = columns.getText();
 			}
 		}
 	}
