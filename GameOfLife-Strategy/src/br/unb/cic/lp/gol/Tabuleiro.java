@@ -12,6 +12,8 @@ public class Tabuleiro extends JFrame{
 	private JButton confirmacao;
 	private String numRows, numColumns;
 	private Font FonteUsual;
+	private JButton next_generation,exit;
+	private BorderLayout layout;
 	private int numLinhas,numColunas;
 	
 	public Tabuleiro(){
@@ -74,17 +76,32 @@ public class Tabuleiro extends JFrame{
 	    int matrix[][] = new int[dimRows][dimColumns];
 
 	    JFrame f = new JFrame("Window containing a matrix");
+	  
 	    JPanel p = new JPanel();
+	    JPanel p2 = new JPanel();
+
 	    p.setLayout(new GridLayout(dimRows, dimColumns));
 
 	    for(int r = 0; r < dimRows; r++){
 	        for(int c = 0; c < dimColumns; c++){
 	            MatrixButton button= new MatrixButton(r, c, matrix);
+	            
 	            p.add(button);
 	        }
 	    }
+	    
+	    p2.setLayout(new FlowLayout());
+	  
+	    JButton exit = new JButton("Exit");
+	    p2.add(exit);
+	    
+	    JButton next_generation = new JButton("Next Generation"); 
+	    p2.add(next_generation);
+	    
+	    
 	    f.add(p);
-	    f.pack();
+	    f.add(p2,BorderLayout.SOUTH);
+	    f.setSize(400,400);
 	    f.setVisible(true); 
 	}
 	
