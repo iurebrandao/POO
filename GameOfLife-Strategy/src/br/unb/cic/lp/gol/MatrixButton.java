@@ -10,6 +10,7 @@ public class MatrixButton extends JButton {
 	private int[][] fModel;
     private int fX;
     private int fY;
+    
 
     public MatrixButton(final int x, final int y, final int[][] model) {
         fX= x;
