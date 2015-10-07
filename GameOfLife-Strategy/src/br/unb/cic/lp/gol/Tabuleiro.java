@@ -15,6 +15,7 @@ public class Tabuleiro extends JFrame{
 	private JButton next_generation,exit;
 	private BorderLayout layout;
 	private int numLinhas,numColunas;
+	private JFrame f;
 	
 	public Tabuleiro(){
 		super("Tamanho do Tabuleiro");
@@ -74,9 +75,9 @@ public class Tabuleiro extends JFrame{
 	private void Desenha_matriz(int dimRows,int dimColumns){
 		
 	    int matrix[][] = new int[dimRows][dimColumns];
-
-	    JFrame f = new JFrame("Window containing a matrix");
-	  
+	    
+	    f = new JFrame("Window containing a matrix");
+	    
 	    JPanel p = new JPanel();
 	    JPanel p2 = new JPanel();
 
@@ -89,20 +90,37 @@ public class Tabuleiro extends JFrame{
 	            p.add(button);
 	        }
 	    }
-	    
 	    p2.setLayout(new FlowLayout());
-	  
+	    
+	    f.add(p,BorderLayout.NORTH);
+	    f.add(p2,BorderLayout.SOUTH);
+	    f.setSize(1000,600);
+	    f.setVisible(true);
+	    
 	    JButton exit = new JButton("Exit");
 	    p2.add(exit);
-	    
-	    JButton next_generation = new JButton("Next Generation"); 
+	    JButton pause = new JButton("Pause");
+	    p2.add(pause);
+	    JButton next_generation = new JButton("Play"); 
 	    p2.add(next_generation);
 	    
-	    
-	    f.add(p);
-	    f.add(p2,BorderLayout.SOUTH);
-	    f.setSize(400,400);
-	    f.setVisible(true); 
+		exit.addActionListener(new ActionListener (){
+			public void actionPerformed (ActionEvent e){
+				f.dispose();
+			}
+		});
+		
+		next_generation.addActionListener(new ActionListener (){
+			public void actionPerformed (ActionEvent e){
+				
+			}
+		});
+		
+		pause.addActionListener(new ActionListener (){
+			public void actionPerformed (ActionEvent e){
+				
+			}
+		});
 	}
 	
 	public class ButtonHandler implements ActionListener{
@@ -114,6 +132,15 @@ public class Tabuleiro extends JFrame{
 				Tabuleiro.this.dispose();
 				Desenha_matriz(numLinhas,numColunas);
 				
+			}
+			if(event.getSource() == exit){
+				
+			}
+			if(event.getSource() == next_generation){
+
+				JOptionPane.showMessageDialog(null,"ENTRou");
+				
+				f.dispose();
 			}
 		}
 	}
