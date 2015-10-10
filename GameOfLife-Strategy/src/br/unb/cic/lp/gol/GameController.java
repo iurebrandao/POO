@@ -36,7 +36,7 @@ public class GameController {
 	}
 	
 	public void start() {
-		board.update(false);
+//		board.update(false);
 	}
 	
 	public void halt() {
@@ -49,23 +49,16 @@ public class GameController {
 	public void makeCellAlive(int i, int j) {
 		try {
 			engine.makeCellAlive(i, j);
-			board.update(false);
 		}
 		catch(InvalidParameterException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
-	public void nextGeneration() {
+	public boolean nextGeneration(int [][]fModel) {
 		boolean existe_celula = true;
-		int i=1;
-		do{
-			System.out.println("\nGeração de número "+i+":");
-			existe_celula =  engine.nextGeneration();
-			board.update(existe_celula);
-			i++;
-		}while(existe_celula);
-		
-	}
-	
+		existe_celula =  engine.nextGeneration();
+		board.update(fModel);
+		return existe_celula;
+	}	
 }

@@ -7,8 +7,7 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class Tabuleiro extends JFrame{
-	private JTextField rows;
-	private JTextField columns;
+	private JTextField rows,columns;
 	private JButton confirmacao;
 	private String numRows, numColumns;
 	private Font FonteUsual;
@@ -16,26 +15,33 @@ public class Tabuleiro extends JFrame{
 	private BorderLayout layout;
 	private int numLinhas,numColunas;
 	private JFrame f;
+	private GameController controller;
+	private GameEngine engine;
+	MatrixButton button;
+	private JPanel p;
+	private int matrix[][];
 	
-	public Tabuleiro(){
+	public Tabuleiro(GameController controller, GameEngine engine){
 		super("Tamanho do Tabuleiro");
 		
+		this.controller = controller;
+		this.engine = engine;
 		this.setLayout(null);
 		this.setLocation(530,140);
 		
 		FonteUsual = new Font("Serif",Font.PLAIN,14);
 		
 		
-		rows = new JTextField("Número de Linhas",2);
+		rows = new JTextField("Numero de Linhas",2);
 		rows.setFont(FonteUsual);
 		rows.setBounds(10,20,170,40);
-		rows.setToolTipText("Insira aqui o número de linhas do tabuleiro");
+		rows.setToolTipText("Insira aqui o numero de linhas do tabuleiro");
 		add(rows);
 		
-		columns = new JTextField("Número de Colunas",2);
+		columns = new JTextField("Numero de Colunas",2);
 		columns.setFont(FonteUsual);
 		columns.setBounds(200,20,170,40);
-		columns.setToolTipText("Insira aqui o número de colunas do tabuleiro");
+		columns.setToolTipText("Insira aqui o numero de colunas do tabuleiro");
 		add(columns);
 		
 		confirmacao = new JButton("Next");
@@ -74,19 +80,19 @@ public class Tabuleiro extends JFrame{
 	
 	private void Desenha_matriz(int dimRows,int dimColumns){
 		
-	    int matrix[][] = new int[dimRows][dimColumns];
+	    matrix = new int[dimRows][dimColumns];
 	    
 	    f = new JFrame("Window containing a matrix");
 	    
-	    JPanel p = new JPanel();
+	    p = new JPanel();
 	    JPanel p2 = new JPanel();
 
 	    p.setLayout(new GridLayout(dimRows, dimColumns));
 
 	    for(int r = 0; r < dimRows; r++){
 	        for(int c = 0; c < dimColumns; c++){
-	            MatrixButton button= new MatrixButton(r, c, matrix);
-	            
+	            button = new MatrixButton(r, c, matrix);
+	            button.setBackground(Color.WHITE);
 	            p.add(button);
 	        }
 	    }
@@ -101,7 +107,7 @@ public class Tabuleiro extends JFrame{
 	    p2.add(exit);
 	    JButton pause = new JButton("Pause");
 	    p2.add(pause);
-	    JButton next_generation = new JButton("Play"); 
+	    JButton next_generation = new JButton("Next Generation"); 
 	    p2.add(next_generation);
 	    
 		exit.addActionListener(new ActionListener (){
@@ -112,7 +118,24 @@ public class Tabuleiro extends JFrame{
 		
 		next_generation.addActionListener(new ActionListener (){
 			public void actionPerformed (ActionEvent e){
-				
+				int num_geracoes=0;
+				button.setMatriz(controller);
+//				do{
+					num_geracoes++;
+					p.removeAll();
+					
+					for(int r = 0; r < numLinhas; r++){
+				        for(int c = 0; c < numColunas; c++){
+				        	button = new MatrixButton(r, c, matrix);
+				        	button.setBackground(Color.WHITE);				            
+				            p.add(button);
+				        }
+				    }
+					p.revalidate();
+					p.repaint();
+//				}while(button.setMatriz(controller) || num_geracoes < 20);
+
+//				JOptionPane.showMessageDialog(null,"N�o restou nenhuma celula");
 			}
 		});
 		
@@ -129,18 +152,10 @@ public class Tabuleiro extends JFrame{
 
 				numLinhas = Integer.parseInt(rows.getText());
 				numColunas = Integer.parseInt(columns.getText());
+				engine.setHeight(numLinhas);
+				engine.setWidth(numColunas);
 				Tabuleiro.this.dispose();
 				Desenha_matriz(numLinhas,numColunas);
-				
-			}
-			if(event.getSource() == exit){
-				
-			}
-			if(event.getSource() == next_generation){
-
-				JOptionPane.showMessageDialog(null,"ENTRou");
-				
-				f.dispose();
 			}
 		}
 	}

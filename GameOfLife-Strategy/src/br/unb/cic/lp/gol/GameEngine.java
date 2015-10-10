@@ -64,6 +64,7 @@ public class GameEngine {
 			for (int j = 0; j < width; j++) {
 				if (estrategia.shouldRevive(i, j, this)) {
 					mustRevive.add(cells[i][j]);
+					
 				} 
 				else if ((!estrategia.shouldKeepAlive(i, j, this)) && cells[i][j].isAlive()) {
 					mustKill.add(cells[i][j]);
@@ -110,6 +111,7 @@ public class GameEngine {
 	public void makeCellAlive(int i, int j) throws InvalidParameterException {
 		if(validPosition(i, j)) {
 			cells[i][j].revive();
+			
 			statistics.recordRevive();
 		}
 		else {
