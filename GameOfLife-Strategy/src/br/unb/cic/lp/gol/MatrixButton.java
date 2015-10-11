@@ -34,7 +34,7 @@ public class MatrixButton extends JButton {
     
     public boolean setMatriz(GameController controller){
     	
-    	boolean existe_celula = true;
+    	boolean existe_celula;
     	tam_linha = fModel.length;
     	tam_coluna = fModel[0].length;
     	
@@ -46,7 +46,6 @@ public class MatrixButton extends JButton {
     		}
     	}
     	existe_celula = controller.nextGeneration(fModel);
-
     	return existe_celula;
     }
 }

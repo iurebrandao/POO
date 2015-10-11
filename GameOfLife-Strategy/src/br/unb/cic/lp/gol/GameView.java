@@ -27,7 +27,7 @@ public class GameView extends JFrame {
 	private JButton highlife;
 	private JButton livefreeordie;
 	private JOptionPane frame;
-
+	private JLabel selecione;
 	private GameEngine engine;
 	private GameController controller;
 
@@ -35,24 +35,30 @@ public class GameView extends JFrame {
 	 * Construtor da classe GameBoard
 	 */
 	public GameView(GameController controller, GameEngine engine) {
-		super("Selecione a regra");
+		super("Regras");
 		this.controller = controller;
 		this.engine = engine;
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(275,110);
+		this.setBounds(550,200,350,250);
+		
 		this.setVisible(true);
-		setLayout(new FlowLayout());
-		this.setLocation(400, 300);
+		this.setLayout(null);
+		
+		selecione = new JLabel("Selecione uma das regras para o jogo:");
+		selecione.setBounds(60, 30, 300, 30);
+		add(selecione);
 		
 		conway = new JButton("Conway");
 		add(conway);
-		
+		conway.setBounds(30,80,120,40);
 		highlife = new JButton("Highlife");
 		add(highlife);
+		highlife.setBounds(170,80,120,40);
 		
 		livefreeordie = new JButton("LiveFreeOrDie");
 		add(livefreeordie);
+		livefreeordie.setBounds(100,140,120,40);
 		
 		ButtonHandler handler = new ButtonHandler();
 		conway.addActionListener(handler);
@@ -69,7 +75,7 @@ public class GameView extends JFrame {
 				GameView.this.dispose();
 				Tabuleiro frame = new Tabuleiro(controller,engine);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setSize(400,500);
+				frame.setBounds(500,150,400,250);
 				frame.setVisible(true);
 				setStrategy(1);
 			}		
@@ -78,7 +84,7 @@ public class GameView extends JFrame {
 				GameView.this.dispose();
 				Tabuleiro frame = new Tabuleiro(controller,engine);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setSize(400,500);
+				frame.setBounds(500,150,400,250);
 				frame.setVisible(true);
 				setStrategy(2);
 			}
@@ -86,7 +92,7 @@ public class GameView extends JFrame {
 				GameView.this.dispose();
 				Tabuleiro frame = new Tabuleiro(controller,engine);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setSize(400,500);
+				frame.setBounds(500,150,400,250);
 				frame.setVisible(true);
 				setStrategy(3); 
 				
@@ -98,16 +104,19 @@ public class GameView extends JFrame {
 	 * Atualiza o componente view (representado pela classe GameBoard),
 	 * possivelmente como uma resposta a uma atualizacao do jogo.
 	 */
-	public void update(int [][]fModel) {
-			
+	public boolean update(int [][]fModel) {
+		boolean existe_celula = false;
 		for (int i = 0; i < engine.getHeight(); i++) {
 			for (int j = 0; j < engine.getWidth(); j++) {
-				if(engine.isCellAlive(i, j)) 
-					fModel[i][j] = 1; 
+				if(engine.isCellAlive(i, j)){ 
+					fModel[i][j] = 1;
+					existe_celula = true;
+				}
 				else
 					fModel[i][j] = 0;
 			}
 		}
+		return existe_celula;
 	}
 
 	private void setStrategy(int option) {

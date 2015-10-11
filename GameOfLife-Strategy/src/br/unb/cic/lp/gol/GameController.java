@@ -56,9 +56,9 @@ public class GameController {
 	}
 	
 	public boolean nextGeneration(int [][]fModel) {
-		boolean existe_celula = true;
-		existe_celula =  engine.nextGeneration();
-		board.update(fModel);
+		boolean existe_celula;
+		engine.nextGeneration();
+		existe_celula = board.update(fModel);
 		return existe_celula;
 	}	
 }
