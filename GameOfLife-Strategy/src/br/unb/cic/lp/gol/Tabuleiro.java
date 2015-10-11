@@ -27,7 +27,6 @@ public class Tabuleiro extends JFrame{
 		this.controller = controller;
 		this.engine = engine;
 		this.setLayout(null);
-		this.setLocation(530,140);
 		
 		FonteUsual = new Font("Serif",Font.PLAIN,14);
 		
@@ -82,7 +81,7 @@ public class Tabuleiro extends JFrame{
 		
 	    matrix = new int[dimRows][dimColumns];
 	    
-	    f = new JFrame("Window containing a matrix");
+	    f = new JFrame("Tabuleiro");
 	    
 	    p = new JPanel();
 	    JPanel p2 = new JPanel();
@@ -96,19 +95,19 @@ public class Tabuleiro extends JFrame{
 	            p.add(button);
 	        }
 	    }
+	    
 	    p2.setLayout(new FlowLayout());
-	    
-	    f.add(p,BorderLayout.NORTH);
-	    f.add(p2,BorderLayout.SOUTH);
-	    f.setSize(1000,600);
-	    f.setVisible(true);
-	    
 	    JButton exit = new JButton("Exit");
 	    p2.add(exit);
 	    JButton pause = new JButton("Pause");
 	    p2.add(pause);
 	    JButton next_generation = new JButton("Next Generation"); 
 	    p2.add(next_generation);
+	    
+	    f.add(p,BorderLayout.NORTH);
+	    f.add(p2,BorderLayout.SOUTH);
+	    f.setBounds(200,70,1000,600);
+	    f.setVisible(true);
 	    
 		exit.addActionListener(new ActionListener (){
 			public void actionPerformed (ActionEvent e){
@@ -118,10 +117,13 @@ public class Tabuleiro extends JFrame{
 		
 		next_generation.addActionListener(new ActionListener (){
 			public void actionPerformed (ActionEvent e){
-				int num_geracoes=0;
-				button.setMatriz(controller);
-//				do{
-					num_geracoes++;
+				int num_geracoes=0,num_max = 50;
+				boolean existe_celula;
+				
+				do{
+					existe_celula = button.setMatriz(controller);
+					if(existe_celula)
+						num_geracoes++;
 					p.removeAll();
 					
 					for(int r = 0; r < numLinhas; r++){
@@ -133,9 +135,14 @@ public class Tabuleiro extends JFrame{
 				    }
 					p.revalidate();
 					p.repaint();
-//				}while(button.setMatriz(controller) || num_geracoes < 20);
-
-//				JOptionPane.showMessageDialog(null,"Não restou nenhuma celula");
+					
+				}while(existe_celula && num_geracoes < num_max);
+				
+				if(!existe_celula)
+					JOptionPane.showMessageDialog(null,"Nenhuma celula viva no tabuleiro!.","Sem celula", JOptionPane.WARNING_MESSAGE);
+				if(num_geracoes >= num_max)
+					JOptionPane.showMessageDialog(null,"Numero maximo de geracoes atingido!","Limite maximo",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Numero de Geracoes geradas: "+num_geracoes);
 			}
 		});
 		
