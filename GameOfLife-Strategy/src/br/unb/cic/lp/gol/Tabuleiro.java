@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.util.Collections;
 import javax.swing.*;
 
+import br.unb.cic.lp.gol.teste.Teste_JUnit;
+
 @SuppressWarnings("serial")
 public class Tabuleiro extends JFrame{
 	private JTextField rows,columns;
@@ -29,7 +31,6 @@ public class Tabuleiro extends JFrame{
 		this.setLayout(null);
 		
 		FonteUsual = new Font("Serif",Font.PLAIN,14);
-		
 		
 		rows = new JTextField("Numero de Linhas",2);
 		rows.setFont(FonteUsual);
@@ -163,6 +164,7 @@ public class Tabuleiro extends JFrame{
 				engine.setWidth(numColunas);
 				Tabuleiro.this.dispose();
 				Desenha_matriz(numLinhas,numColunas);
+				
 			}
 		}
 	}
@@ -190,4 +192,5 @@ public class Tabuleiro extends JFrame{
 		public void mouseEntered(MouseEvent e) {}
 		public void mouseExited(MouseEvent e) {}
 	}
+	
 }
