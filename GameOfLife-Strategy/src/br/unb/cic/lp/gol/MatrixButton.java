@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import br.unb.cic.lp.gol.teste.Teste_JUnit;
+
 @SuppressWarnings("serial")
 public class MatrixButton extends JButton {
 	private int[][] fModel;
@@ -47,5 +49,9 @@ public class MatrixButton extends JButton {
     	}
     	existe_celula = controller.nextGeneration(fModel);
     	return existe_celula;
+    }
+    
+    public int[][] getfModel(){
+    	return fModel;
     }
 }
