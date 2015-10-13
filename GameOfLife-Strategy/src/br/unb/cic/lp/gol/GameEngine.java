@@ -101,7 +101,6 @@ public class GameEngine {
 	public void makeCellAlive(int i, int j) throws InvalidParameterException {
 		if(validPosition(i, j)) {
 			cells[i][j].revive();
-			
 			statistics.recordRevive();
 		}
 		else {
