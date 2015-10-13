@@ -18,8 +18,8 @@ public class Main {
 		GameController controller = new GameController();
 		
 		Statistics statistics = new Statistics();
-
-		GameEngine engine = new GameEngine(10, 10, statistics);	
+		
+		GameEngine engine = new GameEngine(60, 60, statistics);	
 		
 		//nessa implementacao, a estrategia do Conway eh 
 		//configurada como a estrategia inicial. 
@@ -40,7 +40,12 @@ public class Main {
 				+"Regras LiveFreeOrDie: \n"
 				+"1. Uma celula so permanece viva se nao existirem vizinhos.\n"
 				+"2. Qualquer celula morta com exatamente dois vizinhos vivos renasce.\n\n"
-				+"Obs.: Celulas vivas = 1\nCelulas mortas = 0");
+				+"Botões de opcões do tabuleiro:\n"
+				+ "- Exit: Aperte essa tecla para sair do jogo.\n"
+				+ "- Pause: Aperte essa tecla para pausar o jogo.\n"
+				+ "- Continue: Aperte essa tecla para continuar o jogo.\n"
+				+ "- Next Generation: Aperte essa tecla para comecar o jogo (Só aperte essa tecla uma vez).\n"
+				+"\nObs.: Celulas vivas = Quadrado azul\nCelulas mortas = Quadrado Branco");
 		
 		GameView board = new GameView(controller, engine);
 		

@@ -35,6 +35,7 @@ public class GameView extends JFrame {
 	 * Construtor da classe GameBoard
 	 */
 	public GameView(GameController controller, GameEngine engine) {
+		
 		super("Regras");
 		this.controller = controller;
 		this.engine = engine;

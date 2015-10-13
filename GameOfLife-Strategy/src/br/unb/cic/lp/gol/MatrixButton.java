@@ -1,6 +1,7 @@
 package br.unb.cic.lp.gol;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,12 +27,29 @@ public class MatrixButton extends JButton {
                 updateNameFromModel();
             }
         });
-        
-        updateNameFromModel();          
+        updateNameFromModel();
     }
-
+    
+    public int CelulaViva(){
+    	if(fModel[fX][fY] == 1)
+    		return 1;
+    	else
+    		return 0;
+    }
+    
     private void updateNameFromModel() {
-        setText(String.valueOf(fModel[fX][fY]));
+    	if(fModel[fX][fY] == 1){
+    		setBackground(Color.BLUE);
+    	}
+    	else
+    		setBackground(Color.WHITE);
+    }
+    
+    public boolean celulaviva(){
+    	if(fModel[fX][fY] == 1)
+    		return true;
+    	else
+    		return false;
     }
     
     public boolean setMatriz(GameController controller){
