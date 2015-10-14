@@ -31,8 +31,8 @@ public class Main {
 		controller.setEngine(engine);
 		controller.setStatistics(statistics);
 		
-		controller.start();
 	}
+	
 	public static void regras(){
 		JOptionPane.showMessageDialog(null,"Bem-vindo ao GOL");
 		JOptionPane.showMessageDialog(null, "Regras Conway: \n"

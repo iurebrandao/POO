@@ -35,15 +35,8 @@ public class GameController {
 		this.statistics = statistics;
 	}
 	
-	public void start() {
-//		board.update(false);
-	}
-	
-	public void halt() {
-		//oops, nao muito legal fazer sysout na classe Controller
-		System.out.println("\n \n");
+	public void halt() {		
 		statistics.display();
-		System.exit(0);
 	}
 	
 	public void makeCellAlive(int i, int j) {
