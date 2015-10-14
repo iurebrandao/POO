@@ -25,9 +25,9 @@ public class Main {
 			System.out.println("Erro ao definir modo de compatibilidade com a plataforma MAC OS");
 		}
 		
+		// DI utilizando o spring para a classe GameController(Setter injection)
 		ApplicationContext context = new ClassPathXmlApplicationContext("gameOfLife.xml");
 		GameController controller = (GameController) context.getBean("gameController");
-		//GameController controller = new GameController();
 		
 		// DI utilizando o spring para a classe Statistics(Constructor injection)
 		ApplicationContext context1 = new ClassPathXmlApplicationContext("gameOfLife.xml");
