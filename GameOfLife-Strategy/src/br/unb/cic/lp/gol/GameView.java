@@ -32,6 +32,11 @@ public class GameView extends JFrame {
 	private JLabel selecione;
 	private GameEngine engine;
 	private GameController controller;
+	private EstrategiaDeDerivacao StrategyConway = new Conway();
+	private EstrategiaDeDerivacao StrategyHighlife = new HighLife();
+	private EstrategiaDeDerivacao StrategyLive = new LiveFreeOrDie();
+	private int option;
+
 
 	/**
 	 * Construtor da classe GameBoard
@@ -122,15 +127,24 @@ public class GameView extends JFrame {
 		return existe_celula;
 	}
 
-	private void setStrategy(int option) {
-		
+	public void setStrategy(int option) {
+		this.option = option;
 		switch(option) {
-			case CONWAY : engine.setEstrategia(new Conway()); break;
-			case HIGH_LIFE : engine.setEstrategia(new HighLife());break;
-			case LIVE_FREE_OR_DIE : engine.setEstrategia(new LiveFreeOrDie()); break;
+			case CONWAY : engine.setEstrategia(StrategyConway); break;
+			case HIGH_LIFE : engine.setEstrategia(StrategyHighlife);break;
+			case LIVE_FREE_OR_DIE : engine.setEstrategia(StrategyLive); break;
 		}
 	}
 	
+	public EstrategiaDeDerivacao getStrategy() {
+		
+		switch(option) {
+			case CONWAY : return StrategyConway;
+			case HIGH_LIFE : return StrategyHighlife;
+			case LIVE_FREE_OR_DIE : return StrategyLive;
+		}
+		return StrategyConway;
+	}
 	public void makeCellAlive(int i,int j) {
 		
 		controller.makeCellAlive(i, j);
