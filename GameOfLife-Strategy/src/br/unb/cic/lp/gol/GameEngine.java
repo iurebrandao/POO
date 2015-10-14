@@ -4,13 +4,13 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Representa um ambiente (environment) do jogo GameOfLife.
  * 
- * Essa implementacao segue o padrao de projeto Strategy, e a 
- * classe GameEngine possui uma referencia para uma estrategia de 
- * derivacao que pode ser alterada durante a execucao do jogo. 
+ * Essa implementacao segue o padrao de projeto Strategy, e a classe GameEngine
+ * possui uma referencia para uma estrategia de derivacao que pode ser alterada
+ * durante a execucao do jogo.
+ * 
  * @author rbonifacio
  */
 public class GameEngine {
@@ -28,7 +28,7 @@ public class GameEngine {
 	 * @param width
 	 *            dimentsao horizontal do ambiente
 	 */
-	
+
 	public GameEngine(int height, int width, Statistics statistics) {
 		this.height = height;
 		this.width = width;
@@ -40,10 +40,10 @@ public class GameEngine {
 				cells[i][j] = new Cell();
 			}
 		}
-		
+
 		this.statistics = statistics;
 	}
-	
+
 	public void setEstrategia(EstrategiaDeDerivacao e) {
 		estrategia = e;
 	}
@@ -51,24 +51,23 @@ public class GameEngine {
 	public EstrategiaDeDerivacao getEstrategia() {
 		return estrategia;
 	}
-	
+
 	/**
-	 * Calcula uma nova geracao do ambiente. Essa implementacao delega para 
-	 * a estrategia de derivacao a logica necessaria para identificar 
-	 * se uma celula deve se tornar viva ou ser mantida viva na proxima 
-	 * geracao. 
+	 * Calcula uma nova geracao do ambiente. Essa implementacao delega para a
+	 * estrategia de derivacao a logica necessaria para identificar se uma
+	 * celula deve se tornar viva ou ser mantida viva na proxima geracao.
 	 */
 	public void nextGeneration() {
-		
+
 		List<Cell> mustRevive = new ArrayList<Cell>();
 		List<Cell> mustKill = new ArrayList<Cell>();
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				if (estrategia.shouldRevive(i, j, this)) {
 					mustRevive.add(cells[i][j]);
-					
-				} 
-				else if ((!estrategia.shouldKeepAlive(i, j, this)) && cells[i][j].isAlive()) {
+
+				} else if ((!estrategia.shouldKeepAlive(i, j, this))
+						&& cells[i][j].isAlive()) {
 					mustKill.add(cells[i][j]);
 				}
 			}
@@ -77,68 +76,74 @@ public class GameEngine {
 	}
 
 	/*
-	 * Metodo auxiliar que atualiza as estatisticas das celulas 
-	 * que foram mortas ou se tornaram vivas entre duas geracoes. 
+	 * Metodo auxiliar que atualiza as estatisticas das celulas que foram mortas
+	 * ou se tornaram vivas entre duas geracoes.
 	 */
 	private void updateStatistics(List<Cell> mustRevive, List<Cell> mustKill) {
 		for (Cell cell : mustRevive) {
 			cell.revive();
 			statistics.recordRevive();
 		}
-		
+
 		for (Cell cell : mustKill) {
 			cell.kill();
 			statistics.recordKill();
 		}
 	}
-	
+
 	/**
 	 * Torna a celula de posicao (i, j) viva
 	 * 
-	 * @param i posicao vertical da celula
-	 * @param j posicao horizontal da celula
+	 * @param i
+	 *            posicao vertical da celula
+	 * @param j
+	 *            posicao horizontal da celula
 	 * 
-	 * @throws InvalidParameterException caso a posicao (i, j) nao seja valida.
+	 * @throws InvalidParameterException
+	 *             caso a posicao (i, j) nao seja valida.
 	 */
 	public void makeCellAlive(int i, int j) throws InvalidParameterException {
-		if(validPosition(i, j)) {
+		if (validPosition(i, j)) {
 			cells[i][j].revive();
-		}
-		else {
-			new InvalidParameterException("Invalid position (" + i + ", " + j + ")" );
-		}
-	}
-	
-	/**
-	 * Verifica se uma celula na posicao (i, j) estah viva.
-	 * 
-	 * @param i Posicao vertical da celula
-	 * @param j Posicao horizontal da celula
-	 * @return Verdadeiro caso a celula de posicao (i,j) esteja viva.
-	 * 
-	 * @throws InvalidParameterException caso a posicao (i,j) nao seja valida. 
-	 */
-	public boolean isCellAlive(int i, int j) throws InvalidParameterException {
-		if(validPosition(i, j)) {
-			return cells[i][j].isAlive();
-		}
-		else {
-			throw new InvalidParameterException("Invalid position (" + i + ", " + j + ")" );
+		} else {
+			new InvalidParameterException("Invalid position (" + i + ", " + j
+					+ ")");
 		}
 	}
 
 	/**
-	 * Retorna o numero de celulas vivas no ambiente. 
-	 * Esse metodo eh particularmente util para o calculo de 
-	 * estatisticas e para melhorar a testabilidade.
+	 * Verifica se uma celula na posicao (i, j) estah viva.
 	 * 
-	 * @return  numero de celulas vivas.
+	 * @param i
+	 *            Posicao vertical da celula
+	 * @param j
+	 *            Posicao horizontal da celula
+	 * @return Verdadeiro caso a celula de posicao (i,j) esteja viva.
+	 * 
+	 * @throws InvalidParameterException
+	 *             caso a posicao (i,j) nao seja valida.
+	 */
+	public boolean isCellAlive(int i, int j) throws InvalidParameterException {
+		if (validPosition(i, j)) {
+			return cells[i][j].isAlive();
+		} else {
+			throw new InvalidParameterException("Invalid position (" + i + ", "
+					+ j + ")");
+		}
+	}
+
+	/**
+	 * Retorna o numero de celulas vivas no ambiente. Esse metodo eh
+	 * particularmente util para o calculo de estatisticas e para melhorar a
+	 * testabilidade.
+	 * 
+	 * @return numero de celulas vivas.
 	 */
 	public int numberOfAliveCells() {
 		int aliveCells = 0;
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				if(isCellAlive(i,j)) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if (isCellAlive(i, j)) {
 					aliveCells++;
 				}
 			}
@@ -152,72 +157,267 @@ public class GameEngine {
 	 */
 	public int numberOfNeighborhoodAliveCells(int i, int j) {
 		int alive = 0;
-		int a,b;
-		final int max_coluna,max_linha;
+		int a, b;
+		final int max_coluna, max_linha;
 		max_linha = (this.height) - 1;
 		max_coluna = (this.width) - 1;
-		
+
 		for (a = i - 1; a <= i + 1; a++) {
-			
+
 			for (b = j - 1; b <= j + 1; b++) {
-				if (validPosition(a, b)  && (!(a==i && b == j)) && cells[a][b].isAlive()) {
+				if (validPosition(a, b) && (!(a == i && b == j))
+						&& cells[a][b].isAlive()) {
 					alive++;
 				}
 			}
 		}
-		
-		if(i == 0){
-			a = max_linha;
-			
-			if(validPosition(a,j) && cells[a][j].isAlive()){
+
+		if ((i == 0 && j != 0) && (i == 0 && j != max_coluna)) { 
+
+			for (b = j - 1; b <= j + 1; b++) {
+
+				if (validPosition(max_linha, b)
+						&& cells[max_linha][b].isAlive()) {
+
+					alive++;
+
+				}
+
+			}
+
+		}
+
+		if ((i == max_linha && j != 0) && (i == max_linha && j != max_coluna)) { 
+
+			for (b = j - 1; b <= j + 1; b++) {
+
+				if (validPosition(0, b) && cells[0][b].isAlive()) {
+
+					alive++;
+
+				}
+
+			}
+
+		}
+
+		if ((j == 0 && i != 0) && (j == 0 && i != max_linha)) {
+
+			for (a = i - 1; a <= i + 1; a++) {
+
+				if (validPosition(a, max_coluna)
+						&& cells[a][max_coluna].isAlive()) {
+
+					alive++;
+
+				}
+
+			}
+
+		}
+
+		if ((j == max_coluna && i != 0) && (j == max_coluna && i != max_linha)) {
+
+			for (a = i - 1; a <= i + 1; a++) {
+
+				if (validPosition(a, 0) && cells[a][0].isAlive()) {
+
+					alive++;
+
+				}
+
+			}
+
+		}
+
+		if (i == 0 && j == 0) { 
+
+			if (cells[0][max_coluna].isAlive()) {
+
 				alive++;
+
 			}
-			
-			if(j == 0){
-				b = max_coluna;
-				if(validPosition(a,b) && cells[a][b].isAlive()){
-					alive++;
-				}
-			}
-			else if(j == max_coluna){
-				b = 0;
-				if(validPosition(a,b) && cells[a][b].isAlive()){
-					alive++;
-				}
-			}
-		}
-		
-		else if( i == max_linha){
-			a = 0;
-			if(validPosition(a,j) && cells[a][j].isAlive()){
+
+			if (cells[1][max_coluna].isAlive()) {
+
 				alive++;
+
 			}
-			if( j == 0){
-				b = max_coluna;
-				if(validPosition(a,b) && cells[a][b].isAlive()){
-					alive++;
-				}
-			}
-			else if( j == max_coluna){
-				b = 0;
-				if(validPosition(a,b) && cells[a][b].isAlive()){
-					alive++;
-				}
-			}
-		}
-		if( j == 0 ){
-			b = max_coluna;
-			if(validPosition(i,b) && cells[i][b].isAlive()){
+
+			if (cells[max_linha][max_coluna].isAlive()) {
+
 				alive++;
+
 			}
-		}
-		else if( j == max_coluna){
-			b = 0;
-			if(validPosition(i,b) && cells[i][b].isAlive()){
+
+			if (cells[max_linha][0].isAlive()) {
+
 				alive++;
+
 			}
+
+			if (cells[max_coluna][1].isAlive()) {
+
+				alive++;
+
+			}
+
 		}
-		
+
+		if (i == 0 && j == max_coluna) {
+
+			if (cells[max_linha][0].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[max_linha][max_coluna].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[0][0].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[max_linha][max_coluna - 1].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[1][0].isAlive()) {
+
+				alive++;
+
+			}
+
+		}
+
+		if (i == max_linha && j == 0) { 
+
+			if (cells[0][max_coluna].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[max_linha][max_coluna].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[max_linha - 1][max_coluna].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[0][0].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[0][1].isAlive()) {
+
+				alive++;
+
+			}
+
+		}
+
+		if (i == max_linha && j == max_coluna) { // lower right corner
+
+			if (cells[0][max_coluna].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[max_linha][0].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[0][0].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[0][max_coluna - 1].isAlive()) {
+
+				alive++;
+
+			}
+
+			if (cells[max_linha - 1][0].isAlive()) {
+
+				alive++;
+
+			}
+
+		}
+
+		// if(i == 0){
+		// a = max_linha;
+		//
+		// if(validPosition(a,j) && cells[a][j].isAlive()){
+		// alive++;
+		// }
+		//
+		// if(j == 0){
+		// b = max_coluna;
+		// if(validPosition(a,b) && cells[a][b].isAlive()){
+		// alive++;
+		// }
+		// }
+		// else if(j == max_coluna){
+		// b = 0;
+		// if(validPosition(a,b) && cells[a][b].isAlive()){
+		// alive++;
+		// }
+		// }
+		// }
+		//
+		// else if( i == max_linha){
+		// a = 0;
+		// if(validPosition(a,j) && cells[a][j].isAlive()){
+		// alive++;
+		// }
+		// if( j == 0){
+		// b = max_coluna;
+		// if(validPosition(a,b) && cells[a][b].isAlive()){
+		// alive++;
+		// }
+		// }
+		// else if( j == max_coluna){
+		// b = 0;
+		// if(validPosition(a,b) && cells[a][b].isAlive()){
+		// alive++;
+		// }
+		// }
+		// }
+		// if( j == 0 ){
+		// b = max_coluna;
+		// if(validPosition(i,b) && cells[i][b].isAlive()){
+		// alive++;
+		// }
+		// }
+		// else if( j == max_coluna){
+		// b = 0;
+		// if(validPosition(i,b) && cells[i][b].isAlive()){
+		// alive++;
+		// }
+		// }
+
 		return alive;
 	}
 
@@ -229,11 +429,11 @@ public class GameEngine {
 	}
 
 	/* Metodos de acesso as propriedades height e width */
-	
+
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public void setHeight(int height) {
 		this.height = height;
 	}
