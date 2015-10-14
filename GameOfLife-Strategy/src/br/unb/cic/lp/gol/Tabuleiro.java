@@ -13,7 +13,7 @@ import javax.swing.Timer;
 public class Tabuleiro extends JFrame {
 	private JTextField rows, columns;
 	private JButton confirmacao;
-	private JLabel campo_cel, campo_geracoes;
+	private JLabel campo_cel,campo_cel2, campo_geracoes,campo_geracoes2;
 	private String numRows, numColumns;
 	private Font FonteUsual;
 	private JButton next_generation, exit;
@@ -104,7 +104,7 @@ public class Tabuleiro extends JFrame {
 		for (int r = 0; r < dimRows; r++) {
 			for (int c = 0; c < dimColumns; c++) {
 				button = new MatrixButton(r, c, matrix);
-				button.setSize(500, 505);
+				
 				p.add(button);
 			}
 		}
@@ -119,14 +119,15 @@ public class Tabuleiro extends JFrame {
 		JButton next_generation = new JButton("Next Generation");
 		p2.add(next_generation);
 		
-		f.add(p,BorderLayout.NORTH);
-		f.add(p_inf);
+		f.add(p,BorderLayout.CENTER);
+		f.add(p_inf,BorderLayout.NORTH);
 		f.add(p2,BorderLayout.SOUTH);
-		f.setBounds(1,1,1000,600);
-		
-//		f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+		// Pegando o tamanho da tela		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();    
+		Dimension screensize = toolkit.getScreenSize();  
+		f.setBounds(1,1,screensize.width,screensize.height-40);
 		f.setVisible(true);
-		num_geracoes = 0;
 		
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -137,50 +138,7 @@ public class Tabuleiro extends JFrame {
 
 		next_generation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				campo_cel = new JLabel("Numero de celulas vivas: "+num_celulas);
-				campo_geracoes = new JLabel("Numero de geracoes: "+num_geracoes);
-				p_inf.setLayout(new FlowLayout());
-				p_inf.add(campo_cel);
-				p_inf.add(campo_geracoes);
-				
-				Timer timer = new Timer(500, new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-							
-						if (!systemPause){
-								
-							existe_celula = button.setMatriz(controller);
-							num_celulas = 0;
-							p.removeAll();
-							
-							if (existe_celula)
-								num_geracoes++;
-
-							for (int r = 0; r < numLinhas; r++) {
-								for (int c = 0; c < numColunas; c++) {
-									button = new MatrixButton(r, c, matrix);
-									num_celulas += button.CelulaViva();
-									p.add(button);
-								}
-							}
-							p.revalidate();
-							p.repaint();
-							
-							p_inf.removeAll();
-							campo_cel = new JLabel("Numero de celulas vivas: "+num_celulas);
-							campo_geracoes = new JLabel("Numero de geracoes: "+num_geracoes);
-							p_inf.add(campo_cel);
-							p_inf.add(campo_geracoes);
-							p_inf.revalidate();
-							p_inf.repaint();
-							if(!existe_celula){
-								JOptionPane.showMessageDialog(null, "Todas as celulas estao mortas!", "0 Celulas Vivas", JOptionPane.INFORMATION_MESSAGE);
-								JOptionPane.showMessageDialog(null, "Jogo Pausado", "Pausa", JOptionPane.WARNING_MESSAGE);
-								systemPause = true;
-							}
-						}
-					}
-				});
-				timer.start();
+				atualizaMatriz();
 			}
 		});
 
@@ -197,7 +155,6 @@ public class Tabuleiro extends JFrame {
 			}
 		});
 		
-
 		continueJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(systemPause){
@@ -211,7 +168,75 @@ public class Tabuleiro extends JFrame {
 		});
 
 	}
+	
+	public void setLabel(){
+		
+		FonteUsual = new Font("Serif",Font.PLAIN,20);
+		campo_cel = new JLabel("Numero de celulas vivas:");
+		campo_cel2 = new JLabel(""+num_celulas);
+		campo_geracoes = new JLabel("      Numero de geracoes:");
+		campo_geracoes2 = new JLabel(""+num_geracoes);
+		
+		campo_cel.setFont(FonteUsual);
+		campo_geracoes.setFont(FonteUsual);
+		campo_cel2.setFont(FonteUsual);
+		campo_geracoes2.setFont(FonteUsual);
+		
+		campo_cel.setForeground(Color.BLUE);
+		campo_geracoes.setForeground(Color.BLUE);
+		campo_cel2.setForeground(Color.RED);
+		campo_geracoes2.setForeground(Color.RED);
+	}
+	
+	public void atualizaMatriz(){
+		
+		setLabel();
+		p_inf.setLayout(new FlowLayout());
+		p_inf.add(campo_cel);
+		p_inf.add(campo_geracoes);
+		
+		Timer timer = new Timer(500, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					
+				if (!systemPause){
+						
+					existe_celula = button.setMatriz(controller);
+					num_celulas = 0;
+					p.removeAll();
+					
+					if (existe_celula)
+						num_geracoes++;
 
+					for (int r = 0; r < numLinhas; r++) {
+						for (int c = 0; c < numColunas; c++) {
+							button = new MatrixButton(r, c, matrix);
+							num_celulas += button.CelulaViva();
+							p.add(button);
+						}
+					}
+					p.revalidate();
+					p.repaint();
+					
+					p_inf.removeAll();
+					setLabel();
+					p_inf.add(campo_cel);
+					p_inf.add(campo_cel2);
+					p_inf.add(campo_geracoes);
+					p_inf.add(campo_geracoes2);
+					p_inf.revalidate();
+					p_inf.repaint();
+					
+					if(!existe_celula){
+						JOptionPane.showMessageDialog(null, "Todas as celulas estao mortas!", "0 Celulas Vivas", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Jogo Pausado", "Pausa", JOptionPane.WARNING_MESSAGE);
+						systemPause = true;
+					}
+				}
+			}
+		});
+		timer.start();
+	}
+	
 	public class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (event.getSource() == confirmacao) {

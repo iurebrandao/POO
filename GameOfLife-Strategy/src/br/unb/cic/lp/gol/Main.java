@@ -24,8 +24,16 @@ public class Main {
 		//nessa implementacao, a estrategia do Conway eh 
 		//configurada como a estrategia inicial. 
 		engine.setEstrategia(new Conway());
+		regras();
+		GameView board = new GameView(controller, engine);
 		
+		controller.setBoard(board);
+		controller.setEngine(engine);
+		controller.setStatistics(statistics);
 		
+		controller.start();
+	}
+	public static void regras(){
 		JOptionPane.showMessageDialog(null,"Bem-vindo ao GOL");
 		JOptionPane.showMessageDialog(null, "Regras Conway: \n"
 				+"1. Qualquer celula viva com menos de dois vizinhos morre por subpopulacao.\n"
@@ -47,12 +55,5 @@ public class Main {
 				+ "- Next Generation: Aperte essa tecla para comecar o jogo (Só aperte essa tecla uma vez).\n"
 				+"\nObs.: Celulas vivas = Quadrado azul\nCelulas mortas = Quadrado Branco");
 		
-		GameView board = new GameView(controller, engine);
-		
-		controller.setBoard(board);
-		controller.setEngine(engine);
-		controller.setStatistics(statistics);
-		
-		controller.start();
 	}
 }
