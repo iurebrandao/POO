@@ -20,6 +20,7 @@ package br.unb.cic.lp.gol;
 public interface EstrategiaDeDerivacao {
 
 	/** Retorna o nome da regra de derivacao */	
+	
 	public String getName();
 	
 	/**

@@ -1,6 +1,10 @@
 package br.unb.cic.lp.gol;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import br.unb.cic.lp.gol.estrategias.Conway;
 
@@ -14,17 +18,30 @@ import br.unb.cic.lp.gol.estrategias.Conway;
 public class Main {
 
 	public static void main(String args[]) {
+		// Faz com que o Swing se comporte no Mac OS da mesma maneira que se comporta no Windows
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (Exception e) {
+			System.out.println("Erro ao definir modo de compatibilidade com a plataforma MAC OS");
+		}
 		
-		GameController controller = new GameController();
+		ApplicationContext context = new ClassPathXmlApplicationContext("gameOfLife.xml");
+		GameController controller = (GameController) context.getBean("gameController");
+		//GameController controller = new GameController();
 		
-		Statistics statistics = new Statistics();
+		// DI utilizando o spring para a classe Statistics(Constructor injection)
+		ApplicationContext context1 = new ClassPathXmlApplicationContext("gameOfLife.xml");
+		Statistics statistics = (Statistics) context1.getBean("statistics");
 		
-		GameEngine engine = new GameEngine(60, 60, statistics);	
+		// DI utilizando o spring para a classe GameEngine(Constructor injection)
+		ApplicationContext context2 = new ClassPathXmlApplicationContext("gameOfLife.xml");
+		GameEngine engine = (GameEngine) context2.getBean("gameEngine");
 		
 		//nessa implementacao, a estrategia do Conway eh 
 		//configurada como a estrategia inicial. 
 		engine.setEstrategia(new Conway());
 		regras();
+		
 		GameView board = new GameView(controller, engine);
 		
 		controller.setBoard(board);
@@ -48,11 +65,11 @@ public class Main {
 				+"Regras LiveFreeOrDie: \n"
 				+"1. Uma celula so permanece viva se nao existirem vizinhos.\n"
 				+"2. Qualquer celula morta com exatamente dois vizinhos vivos renasce.\n\n"
-				+"Botões de opcões do tabuleiro:\n"
+				+"Botoes de opcoes do tabuleiro:\n"
 				+ "- Exit: Aperte essa tecla para sair do jogo.\n"
 				+ "- Pause: Aperte essa tecla para pausar o jogo.\n"
 				+ "- Continue: Aperte essa tecla para continuar o jogo.\n"
-				+ "- Next Generation: Aperte essa tecla para comecar o jogo (Só aperte essa tecla uma vez).\n"
+				+ "- Next Generation: Aperte essa tecla para comecar o jogo (So aperte essa tecla uma vez).\n"
 				+"\nObs.: Celulas vivas = Quadrado azul\nCelulas mortas = Quadrado Branco");
 		
 	}

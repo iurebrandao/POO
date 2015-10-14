@@ -3,6 +3,7 @@ package br.unb.cic.lp.gol;
 import java.util.Scanner;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import br.unb.cic.lp.gol.estrategias.LiveFreeOrDie;
  * 
  * @author rbonifacio
  */
+@SuppressWarnings({ "serial", "unused" })
 public class GameView extends JFrame {
 	
 	private static final int CONWAY = 1;

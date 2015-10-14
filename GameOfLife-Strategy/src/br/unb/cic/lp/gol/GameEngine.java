@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Representa um ambiente (environment) do jogo GameOfLife.
  * 
@@ -27,6 +28,7 @@ public class GameEngine {
 	 * @param width
 	 *            dimentsao horizontal do ambiente
 	 */
+	
 	public GameEngine(int height, int width, Statistics statistics) {
 		this.height = height;
 		this.width = width;
@@ -229,7 +231,7 @@ public class GameEngine {
 	public int getHeight() {
 		return height;
 	}
-
+	
 	public void setHeight(int height) {
 		this.height = height;
 	}

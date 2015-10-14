@@ -150,7 +150,7 @@ public class Tabuleiro extends JFrame {
 					JOptionPane.showMessageDialog(null, "Jogo Pausado", "Pausa", JOptionPane.WARNING_MESSAGE);
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "O jogo já está pausado!", "Pausa", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "O jogo jï¿½ estï¿½ pausado!", "Pausa", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -162,7 +162,7 @@ public class Tabuleiro extends JFrame {
 					JOptionPane.showMessageDialog(null, "Jogo Despausado", "Jogo", JOptionPane.WARNING_MESSAGE);
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "O jogo não está pausado!", "Pausa", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "O jogo nao esta pausado!", "Pausa", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

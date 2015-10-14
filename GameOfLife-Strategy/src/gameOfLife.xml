@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+        
+   <bean id="gameController" class="br.unb.cic.lp.gol.GameController">
+   		<property name="engine" ref="gameEngine" />
+   		<property name="statistics" ref="statistics" />
+   </bean>
+  
+   <bean id="gameEngine" class="br.unb.cic.lp.gol.GameEngine">
+   		<constructor-arg value="60" />
+   		<constructor-arg value="60" />
+   		<constructor-arg ref="statistics" />
+   </bean>
+   
+   <bean id="statistics" class="br.unb.cic.lp.gol.Statistics">
+   		<constructor-arg value="0" />
+   		<constructor-arg value="0" />
+   </bean>
+   
+   
+   
+
+  	
+  	
+</beans>

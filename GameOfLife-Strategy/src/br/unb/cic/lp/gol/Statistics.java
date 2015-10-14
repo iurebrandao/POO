@@ -13,9 +13,9 @@ public class Statistics {
 	private int revivedCells;
 	private int killedCells;
 	
-	public Statistics() {
-		revivedCells = 0;
-		killedCells = 0;
+	public Statistics(int revivedCells, int killedCells) {
+		this.revivedCells = revivedCells;
+		this.killedCells = killedCells;
 	}
 
 	public int getRevivedCells() {
