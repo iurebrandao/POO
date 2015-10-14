@@ -172,251 +172,130 @@ public class GameEngine {
 			}
 		}
 
-		if ((i == 0 && j != 0) && (i == 0 && j != max_coluna)) { 
-
-			for (b = j - 1; b <= j + 1; b++) {
-
-				if (validPosition(max_linha, b)
-						&& cells[max_linha][b].isAlive()) {
-
-					alive++;
-
-				}
-
-			}
-
-		}
+		
 
 		if ((i == max_linha && j != 0) && (i == max_linha && j != max_coluna)) { 
 
 			for (b = j - 1; b <= j + 1; b++) {
-
 				if (validPosition(0, b) && cells[0][b].isAlive()) {
-
 					alive++;
-
 				}
-
 			}
-
 		}
-
-		if ((j == 0 && i != 0) && (j == 0 && i != max_linha)) {
-
-			for (a = i - 1; a <= i + 1; a++) {
-
-				if (validPosition(a, max_coluna)
-						&& cells[a][max_coluna].isAlive()) {
-
+		
+		if ((i == 0 && j != 0) && (i == 0 && j != max_coluna)) { 
+			for (b = j - 1; b <= j + 1; b++) {
+				if (validPosition(max_linha, b)
+						&& cells[max_linha][b].isAlive()) {
 					alive++;
-
 				}
-
 			}
-
 		}
 
 		if ((j == max_coluna && i != 0) && (j == max_coluna && i != max_linha)) {
-
 			for (a = i - 1; a <= i + 1; a++) {
-
 				if (validPosition(a, 0) && cells[a][0].isAlive()) {
-
 					alive++;
-
 				}
-
 			}
-
+		}
+		
+		if ((j == 0 && i != 0) && (j == 0 && i != max_linha)) {
+			for (a = i - 1; a <= i + 1; a++) {
+				if (validPosition(a, max_coluna) && cells[a][max_coluna].isAlive()) {
+					alive++;
+				}
+			}
 		}
 
 		if (i == 0 && j == 0) { 
-
 			if (cells[0][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[1][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha][0].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_coluna][1].isAlive()) {
-
 				alive++;
-
 			}
-
 		}
 
 		if (i == 0 && j == max_coluna) {
-
 			if (cells[max_linha][0].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[0][0].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha][max_coluna - 1].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[1][0].isAlive()) {
-
 				alive++;
-
 			}
-
 		}
 
 		if (i == max_linha && j == 0) { 
-
 			if (cells[0][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha - 1][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[0][0].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[0][1].isAlive()) {
-
 				alive++;
-
 			}
 
 		}
 
-		if (i == max_linha && j == max_coluna) { // lower right corner
-
+		if (i == max_linha && j == max_coluna) { 
 			if (cells[0][max_coluna].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha][0].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[0][0].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[0][max_coluna - 1].isAlive()) {
-
 				alive++;
-
 			}
 
 			if (cells[max_linha - 1][0].isAlive()) {
-
 				alive++;
-
 			}
-
 		}
-
-		// if(i == 0){
-		// a = max_linha;
-		//
-		// if(validPosition(a,j) && cells[a][j].isAlive()){
-		// alive++;
-		// }
-		//
-		// if(j == 0){
-		// b = max_coluna;
-		// if(validPosition(a,b) && cells[a][b].isAlive()){
-		// alive++;
-		// }
-		// }
-		// else if(j == max_coluna){
-		// b = 0;
-		// if(validPosition(a,b) && cells[a][b].isAlive()){
-		// alive++;
-		// }
-		// }
-		// }
-		//
-		// else if( i == max_linha){
-		// a = 0;
-		// if(validPosition(a,j) && cells[a][j].isAlive()){
-		// alive++;
-		// }
-		// if( j == 0){
-		// b = max_coluna;
-		// if(validPosition(a,b) && cells[a][b].isAlive()){
-		// alive++;
-		// }
-		// }
-		// else if( j == max_coluna){
-		// b = 0;
-		// if(validPosition(a,b) && cells[a][b].isAlive()){
-		// alive++;
-		// }
-		// }
-		// }
-		// if( j == 0 ){
-		// b = max_coluna;
-		// if(validPosition(i,b) && cells[i][b].isAlive()){
-		// alive++;
-		// }
-		// }
-		// else if( j == max_coluna){
-		// b = 0;
-		// if(validPosition(i,b) && cells[i][b].isAlive()){
-		// alive++;
-		// }
-		// }
 
 		return alive;
 	}

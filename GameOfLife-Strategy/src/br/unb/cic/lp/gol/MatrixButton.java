@@ -10,6 +10,7 @@ import javax.swing.*;
 import br.unb.cic.lp.gol.teste.Teste_JUnit;
 
 @SuppressWarnings("serial")
+ /* Classe que cria a matriz de botões, que funciona como o tabuleiro do jogo */
 public class MatrixButton extends JButton {
 	private int[][] fModel;
     private int fX;

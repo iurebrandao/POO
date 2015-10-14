@@ -131,6 +131,7 @@ public class GameView extends JFrame {
 	}
 
 	public void setStrategy(int option) {
+		// Injecao de dependencia utilizando Spring Framework para as regras do jogo
 		ApplicationContext context = new ClassPathXmlApplicationContext("gameOfLife.xml");
 		StrategyConway = (EstrategiaDeDerivacao) context.getBean("conway");
 		

@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 @SuppressWarnings("serial")
+/* Classe que lida com a  interface em si, utilizando Java Swing, criando as telas, lidando com os botoes e cliques. */
 public class Tabuleiro extends JFrame {
 	private JTextField rows, columns;
 	private JButton confirmacao;
@@ -82,6 +83,7 @@ public class Tabuleiro extends JFrame {
 		}
 
 		public void keyTyped(KeyEvent e) {
+		
 		}
 
 		public void keyReleased(KeyEvent e) {
