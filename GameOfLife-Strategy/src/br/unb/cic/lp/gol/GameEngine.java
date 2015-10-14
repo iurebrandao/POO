@@ -165,12 +165,14 @@ public class GameEngine {
 				}
 			}
 		}
-		if(i == 0 ){
+		
+		if(i == 0){
 			a = max_linha;
 			
 			if(validPosition(a,j) && cells[a][j].isAlive()){
 				alive++;
 			}
+			
 			if(j == 0){
 				b = max_coluna;
 				if(validPosition(a,b) && cells[a][b].isAlive()){

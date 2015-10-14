@@ -2,7 +2,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans>
-        
+   
+   <bean id="conway" class="br.unb.cic.lp.gol.estrategias.Conway" />
+   <bean id="highLife" class="br.unb.cic.lp.gol.estrategias.HighLife" />
+   <bean id="liveFreeOrDie" class="br.unb.cic.lp.gol.estrategias.LiveFreeOrDie" />
+   
+   
+   
    <bean id="gameController" class="br.unb.cic.lp.gol.GameController">
    		<property name="engine" ref="gameEngine" />
    		<property name="statistics" ref="statistics" />
@@ -18,10 +24,5 @@
    		<constructor-arg value="0" />
    		<constructor-arg value="0" />
    </bean>
-   
-   
-   
 
-  	
-  	
 </beans>

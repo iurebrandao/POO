@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,9 +35,9 @@ public class GameView extends JFrame {
 	private JLabel selecione;
 	private GameEngine engine;
 	private GameController controller;
-	private EstrategiaDeDerivacao StrategyConway = new Conway();
-	private EstrategiaDeDerivacao StrategyHighlife = new HighLife();
-	private EstrategiaDeDerivacao StrategyLive = new LiveFreeOrDie();
+	private EstrategiaDeDerivacao StrategyConway;
+	private EstrategiaDeDerivacao StrategyHighlife;
+	private EstrategiaDeDerivacao StrategyLive;
 	private int option;
 
 
@@ -128,6 +131,13 @@ public class GameView extends JFrame {
 	}
 
 	public void setStrategy(int option) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("gameOfLife.xml");
+		StrategyConway = (EstrategiaDeDerivacao) context.getBean("conway");
+		
+		StrategyHighlife = (EstrategiaDeDerivacao) context.getBean("highLife");
+		
+		StrategyLive = (EstrategiaDeDerivacao) context.getBean("liveFreeOrDie");
+		
 		this.option = option;
 		switch(option) {
 			case CONWAY : engine.setEstrategia(StrategyConway); break;
@@ -145,6 +155,7 @@ public class GameView extends JFrame {
 		}
 		return StrategyConway;
 	}
+	
 	public void makeCellAlive(int i,int j) {
 		
 		controller.makeCellAlive(i, j);

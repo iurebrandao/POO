@@ -17,7 +17,6 @@ public class Tabuleiro extends JFrame {
 	private String numRows, numColumns;
 	private Font FonteUsual;
 	private JButton next_generation, exit;
-	private BorderLayout layout;
 	private int numLinhas, numColunas;
 	private JFrame f;
 	private GameController controller;
@@ -25,7 +24,7 @@ public class Tabuleiro extends JFrame {
 	MatrixButton button;
 	private JPanel p, p2, p_inf;
 	private int matrix[][];
-	private int num_geracoes = 0,num_celulas, num_max = 50;
+	private int num_geracoes = 0,num_celulas;
 	private boolean existe_celula, systemPause = false;
 	
 
@@ -243,27 +242,54 @@ public class Tabuleiro extends JFrame {
 				
 				try {	
 					numLinhas = Integer.parseInt(rows.getText());
-					if(numLinhas > 60){
-						JOptionPane.showMessageDialog(null, "Tamanho de linhas invalido ", "Excecao",
-								JOptionPane.ERROR_MESSAGE);
-					}
 				} catch (NumberFormatException e) {
 					JOptionPane.showMessageDialog(null, "Digite numero(s) no campo Linha", "Excecao",
 							JOptionPane.ERROR_MESSAGE);
-					
+					try{
+						numLinhas = Integer.parseInt(JOptionPane.showInputDialog("Digite apenas numeros, senao, tamanho padrao sera definido: "));
+						rows.setText(""+numLinhas);
+					}catch(NumberFormatException q){
+						rows.setEnabled(false);
+						rows.setText("10");
+						numLinhas = 10;
+						JOptionPane.showMessageDialog(null, " Tamanho padrao da linha definido", "Aviso",
+								JOptionPane.WARNING_MESSAGE);
+					}
 				}
+				
+				while(numLinhas > 60){
+					JOptionPane.showMessageDialog(null, "Tamanho de linhas invalido ", "Excecao",
+							JOptionPane.ERROR_MESSAGE);
+					numLinhas = Integer.parseInt(JOptionPane.showInputDialog("Digite um numero < 60: "));
+					rows.setText(""+numLinhas);
+				}
+				
 				try {
 					numColunas = Integer.parseInt(columns.getText());
-					Tabuleiro.this.dispose();
-					if(numColunas > 60){
-						JOptionPane.showMessageDialog(null, "Tamanho de colunas invalido", "Excecao",
-								JOptionPane.ERROR_MESSAGE);
-					}
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Digite numero(s) no campo Coluna", "Excecao",
+					JOptionPane.showMessageDialog(null, "Digite numero(s) no campo coluna", "Excecao",
 							JOptionPane.ERROR_MESSAGE);
+						
+					try{
+						numColunas = Integer.parseInt(JOptionPane.showInputDialog("Digite apenas numeros, senao, tamanho padrao sera definido: "));
+						rows.setText(""+numColunas);
+					}catch(NumberFormatException q){
+						columns.setEnabled(false);
+						columns.setText("10");
+						numColunas = 10;
+						JOptionPane.showMessageDialog(null, " Tamanho padrao da coluna definido", "Aviso",
+								JOptionPane.WARNING_MESSAGE);
+					}
 				}
-
+				
+				while(numColunas > 60){
+					JOptionPane.showMessageDialog(null, "Tamanho de colunas invalido ", "Excecao",
+							JOptionPane.ERROR_MESSAGE);
+					numColunas = Integer.parseInt(JOptionPane.showInputDialog("Digite um numero < 60: "));
+					rows.setText(""+numColunas);
+				}
+				
+				Tabuleiro.this.dispose();
 				engine.setHeight(numLinhas);
 				engine.setWidth(numColunas);
 				Desenha_matriz(numLinhas, numColunas);
